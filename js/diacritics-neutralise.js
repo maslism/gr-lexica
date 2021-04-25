@@ -1,26 +1,26 @@
 /**
  * When filtering a table with accented characters (letters with diacritical marks)
- * it can be frustrating to have an input such as _Zurich_ not match _Zürich_ in 
- * the table (`u !== ü`). 
+ * it can be frustrating to have an input such as _Zurich_ not match _Zürich_ in
+ * the table (`u !== ü`).
  *
  * This type based search plug-in replaces the built-in string formatter in
- * DataTables with a function that will replace a comprehensive range of letters 
- * with diacritical marks to their "normalized" a..Z latin equivalents. 
+ * DataTables with a function that will replace a comprehensive range of letters
+ * with diacritical marks to their "normalized" a..Z latin equivalents.
  *
- * This plug-in targets a wider scope of languages than the accent-neutralise plugin. 
- * European languages such as slavic, nordic, baltic, finnish, celtic, albanian, 
- * hungarian (etc) is covered as well as turkish and asian languages written in european latin.  
+ * This plug-in targets a wider scope of languages than the accent-neutralise plugin.
+ * European languages such as slavic, nordic, baltic, finnish, celtic, albanian,
+ * hungarian (etc) is covered as well as turkish and asian languages written in european latin.
  *
  * For example is the letters ＥÈÉÊỀẾỄỂẼĒḔḖĔĖËẺĚȄȆẸỆȨḜĘḘḚƐƎ searchable by the input 'E'.
  *
- * As a additional feature you can customise the plugin by allowing certain diacratics: 
+ * As a additional feature you can customise the plugin by allowing certain diacratics:
  *
  * jQuery.fn.DataTable.ext.type.search.allowDiacritics( array );
  *
  * For example you would like to be able filter the nordic letters æ, ø, å :
  *
  * jQuery.fn.DataTable.ext.type.search.allowDiacritics( ['æ', 'ø', 'å' ] );
- * 
+ *
  *
  *  @name Diacritics-neutralise
  *  @summary Replace accented characters (diacritics) with latin equivalents
@@ -28,7 +28,7 @@
  *  @email davidkonrad at googles email
  *
  *
- * Demo 
+ * Demo
  *
  * http://plnkr.co/edit/Gf96d39S0b0CETt0hr4L?p=preview
  *
@@ -119,6 +119,7 @@ var diacriticsMap = [
   {'base':'vy','letters':/[\uA761]/g},
   {'base':'w','letters':/[\u0077\u24E6\uFF57\u1E81\u1E83\u0175\u1E87\u1E85\u1E98\u1E89\u2C73]/g},
   {'base':'x','letters':/[\u0078\u24E7\uFF58\u1E8B\u1E8D]/g},
+  {'base':'','letters':/[\u2010\uFE63]/g},
   {'base':'y','letters':/[\u0079\u24E8\uFF59\u1EF3\u00FD\u0177\u1EF9\u0233\u1E8F\u00FF\u1EF7\u1E99\u1EF5\u01B4\u024F\u1EFF]/g},
   {'base':'z','letters':/[\u007A\u24E9\uFF5A\u017A\u1E91\u017C\u017E\u1E93\u1E95\u01B6\u0225\u0240\u2C6C\uA763]/g}
 ];
@@ -127,7 +128,7 @@ function removeDiacritics ( s ) {
   for (var i=0, l=diacriticsMap.length; i<l; i++) {
     s = s.replace(diacriticsMap[i].letters, diacriticsMap[i].base);
   }
-  return s; 
+  return s;
 }
 
 function charToUnicode( char ) {
@@ -144,12 +145,12 @@ jQuery.fn.DataTable.ext.type.search.allowDiacritics = function( array ) {
     var unicode = charToUnicode(array[i]);
     for (var di=0, dl=diacriticsMap.length; di<dl; di++) {
       var _old = diacriticsMap[di].letters.toString();
-      var _new = _old.replace(unicode, '');  
+      var _new = _old.replace(unicode, '');
       if (_old != _new) {
         diacriticsMap[di].letters = new RegExp(_new);
-      }        
-    }        
-  }     
+      }
+    }
+  }
 };
 
 jQuery.fn.DataTable.ext.type.search.string = function ( s ) {
@@ -159,4 +160,3 @@ jQuery.fn.DataTable.ext.type.search.string = function ( s ) {
 /**
  * end of diacritics-neutralise.js
  */
-
