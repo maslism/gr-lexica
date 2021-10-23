@@ -107,6 +107,7 @@ var diacriticsMap = [
   {'base':'o', 'letters':/[\u006F\u24DE\uFF4F\u00F2\u00F3\u00F4\u1ED3\u1ED1\u1ED7\u1ED5\u00F5\u1E4D\u022D\u1E4F\u014D\u1E51\u1E53\u014F\u022F\u0231\u00F6\u022B\u1ECF\u0151\u01D2\u020D\u020F\u01A1\u1EDD\u1EDB\u1EE1\u1EDF\u1EE3\u1ECD\u1ED9\u01EB\u01ED\u00F8\u01FF\u0254\uA74B\uA74D\u0275]/g},
   {'base':'oi','letters':/[\u01A3]/g},
   {'base':'ou','letters':/[\u0223]/g},
+  {'base':'','letters':/[\u2010]/g},
   {'base':'oo','letters':/[\uA74F]/g},
   {'base':'p','letters':/[\u0070\u24DF\uFF50\u1E55\u1E57\u01A5\u1D7D\uA751\uA753\uA755]/g},
   {'base':'q','letters':/[\u0071\u24E0\uFF51\u024B\uA757\uA759]/g},
