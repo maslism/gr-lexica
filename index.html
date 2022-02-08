@@ -60,6 +60,32 @@
           return "";
       }
 
+      $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+          var min = parseInt( $('#min').val(), 2 );
+          var max = parseInt( $('#max').val(), 92 );
+          var cv = parseFloat( data[2] ) || 0; // use data for the age column
+
+          if ( ( isNaN( min ) && isNaN( max ) ) ||
+               ( isNaN( min ) && cv <= max ) ||
+               ( min <= cv   && isNaN( max ) ) ||
+               ( min <= cv   && cv <= max ) )
+          {
+              return true;
+        }
+        return false;
+    }
+    );
+
+    $(document).ready(function() {
+    var table = $('#example').DataTable();
+
+    // Event listener to the two range filtering inputs to redraw on input
+    $('#min, #max').keyup( function() {
+        table.draw();
+        } );
+      } );
+
       CsvToHtmlTable.init({
         csv_path: 'data/hnatek_vocab.csv',
         element: 'table-container',
