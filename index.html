@@ -28,6 +28,18 @@
       <p>Slovní zásoba z knihy Hnátek et al. (1969). <i>Cvičebnice jazyka řeckého</i>. Údaje excerpovali Tereza Vacková a Kamil Gregor. </p>
       <p>Vyhledávač není citlivý na českou diakritiku nebo starořecké přízvuky a přídechy.
 
+        <table border="0" cellspacing="5" cellpadding="5">
+    						<tr>
+    							<td>Dolní hranice:‎</td>
+    							<td><input type="text" id="min" name="min"></td>
+    						</tr>
+    						<tr>
+    							<td>Horní hranice:‎‎</td>
+    							<td><input type="text" id="max" name="max"></td>
+    						</tr>
+    					</table>
+      <br>
+
       <div id='table-container'></div>
 
     </div><!-- /.container -->
@@ -51,7 +63,6 @@
     <script type="text/javascript" src="js/dataTables.bootstrap.js"></script>
     <script type="text/javascript" src="js/csv_to_html_table.js"></script>
 
-
     <script>
       function format_link(link){
         if (link)
@@ -60,31 +71,6 @@
           return "";
       }
 
-      $.fn.dataTable.ext.search.push(
-        function( settings, data, dataIndex ) {
-          var min = parseInt( $('#min').val(), 2 );
-          var max = parseInt( $('#max').val(), 92 );
-          var cv = parseFloat( data[2] ) || 0; // use data for the age column
-
-          if ( ( isNaN( min ) && isNaN( max ) ) ||
-               ( isNaN( min ) && cv <= max ) ||
-               ( min <= cv   && isNaN( max ) ) ||
-               ( min <= cv   && cv <= max ) )
-          {
-              return true;
-        }
-        return false;
-    }
-    );
-
-    $(document).ready(function() {
-    var table = $('#example').DataTable();
-
-    // Event listener to the two range filtering inputs to redraw on input
-    $('#min, #max').keyup( function() {
-        table.draw();
-        } );
-      } );
 
       CsvToHtmlTable.init({
         csv_path: 'data/hnatek_vocab.csv',
@@ -92,9 +78,42 @@
         allow_download: false,
         csv_options: {separator: ';', delimiter: '"'},
         datatables_options: {"paging": true, "language": {
-        url: 'js/Czech.json'}},
+        url: 'js/Czech.json'}, },
+        autoFill: true,
         custom_formatting: [[3, format_link]]
       });
     </script>
+    <script type="text/javascript" class="init">
+
+
+/* Custom filtering function which will search data in column four between two values */
+$.fn.dataTable.ext.search.push(
+	function( settings, data, dataIndex ) {
+		var min = parseInt( $('#min').val(), 10 );
+		var max = parseInt( $('#max').val(), 10 );
+		var age = parseFloat( data[2] ) || 0; // use data for the age column
+
+		if ( ( isNaN( min ) && isNaN( max ) ) ||
+			 ( isNaN( min ) && age <= max ) ||
+			 ( min <= age   && isNaN( max ) ) ||
+			 ( min <= age   && age <= max ) )
+		{
+			return true;
+		}
+		return false;
+	}
+);
+
+$(document).ready(function() {
+	var table = $('#example').DataTable();
+
+	// Event listener to the two range filtering inputs to redraw on input
+	$('#min, #max').keyup( function() {
+		table.draw();
+	} );
+} );
+
+
+	</script>
   </body>
 </html>
