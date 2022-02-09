@@ -50,8 +50,16 @@ CsvToHtmlTable = {
                 }
                 $table.append($tableBody);
 
-                $table.DataTable(datatables_options);
-                
+
+
+                $(document).ready(function() {
+	var table = $('#table-container-table').DataTable(datatables_options);
+	// Event listener to the two range filtering inputs to redraw on input
+	$('#min, #max').keyup( function() {
+		table.draw();
+	} );
+} );
+
                 if (allow_download) {
                     $containerElement.append("<p><a class='btn btn-info' href='" + csv_path + "'><i class='glyphicon glyphicon-download'></i> Download as CSV</a></p>");
                 }
