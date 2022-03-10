@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/searchPanes.dataTables.min.css" rel="stylesheet">
     <link href="css/dataTables.bootstrap.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -54,6 +55,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="js/dataTables.searchPanes.min.js"></script>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/jquery.csv.min.js"></script>
@@ -70,6 +72,12 @@
         else
           return "";
       }
+      function format_link2(link2){
+        if (link2)
+        return "<a href='https://en.wiktionary.org/wiki/" + link2 + "#Inflection" + "' target='_blank'>" + link2 + "</a>";
+        else
+          return "";
+      }
 
 
       CsvToHtmlTable.init({
@@ -78,8 +86,11 @@
         allow_download: false,
         csv_options: {separator: ';', delimiter: '"'},
         datatables_options: {"paging": true, "language": {
-        url: 'js/Czech.json'}, },
-        custom_formatting: [[3, format_link]]
+        url: 'js/Czech.json'},
+        "searchPanes": {
+            cascadePanes: true
+        }, "dom": 'Plfrtip',},
+        custom_formatting: [[3, format_link], [4, format_link2] ]
       });
     </script>
     <script type="text/javascript" class="init">
