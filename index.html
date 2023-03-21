@@ -11,6 +11,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/autoFill.dataTables.min.css" rel="stylesheet">
     <link href="css/searchPanes.dataTables.min.css" rel="stylesheet">
     <link href="css/dataTables.bootstrap.css" rel="stylesheet">
 
@@ -26,7 +27,7 @@
 
       <h2>Slovní zásoba z Cvičebnice jazyka řeckého</h2>
 
-      <p>Slovní zásoba z knihy Hnátek et al. (1969). <i>Cvičebnice jazyka řeckého</i>. Údaje excerpovali Tereza Vacková a Kamil Gregor. </p>
+      <p>Slovní zásoba z knihy Hnátek et al. (1969). <i>Cvičebnice jazyka řeckého</i>. Údaje excerpovali Tereza Vacková a Kamil Gregor. Ruština podle strojového překladu. </p>
       <p>Vyhledávač není citlivý na českou diakritiku nebo starořecké přízvuky a přídechy.
 
         <table border="0" cellspacing="5" cellpadding="5">
@@ -64,8 +65,10 @@
     <script type="text/javascript" src="js/accent-neutralise.js"></script>
     <script type="text/javascript" src="js/dataTables.bootstrap.js"></script>
     <script type="text/javascript" src="js/csv_to_html_table.js"></script>
+    <script type="text/javascript" src="js/bootstrap3-typeahead.js"></script>
 
     <script>
+
       function format_link(link){
         if (link)
         return "<a href='https://logeion.uchicago.edu/" + link + "' target='_blank'>" + link + "</a>";
@@ -83,14 +86,14 @@
       CsvToHtmlTable.init({
         csv_path: 'data/hnatek_vocab.csv',
         element: 'table-container',
-        allow_download: false,
+        allow_download: true,
         csv_options: {separator: ';', delimiter: '"'},
-        datatables_options: {"paging": true, "language": {
+        datatables_options: {"paging": true, "autoFill": true, "language": {
         url: 'js/Czech.json'},
         "searchPanes": {
             cascadePanes: true
         }, "dom": 'Plfrtip',},
-        custom_formatting: [[3, format_link], [4, format_link2] ]
+        custom_formatting: [[4, format_link], [5, format_link2] ]
       });
     </script>
     <script type="text/javascript" class="init">
@@ -101,7 +104,7 @@ $.fn.dataTable.ext.search.push(
 	function( settings, data, dataIndex ) {
 		var min = parseInt( $('#min').val(), 10 );
 		var max = parseInt( $('#max').val(), 10 );
-		var age = parseFloat( data[2] ) || 0; // use data for the age column
+		var age = parseFloat( data[3] ) || 0; // use data for the age column
 
 		if ( ( isNaN( min ) && isNaN( max ) ) ||
 			 ( isNaN( min ) && age <= max ) ||
@@ -113,8 +116,6 @@ $.fn.dataTable.ext.search.push(
 		return false;
 	}
 );
-
-
 
 	</script>
   </body>
