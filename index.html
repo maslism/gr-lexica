@@ -27,7 +27,7 @@
 
       <h2>Slovní zásoba z Cvičebnice jazyka řeckého</h2>
 
-      <p>Slovní zásoba z knihy Hnátek et al. (1969). <i>Cvičebnice jazyka řeckého</i>. Údaje excerpovali Tereza Vacková a Kamil Gregor. Ruština podle strojového překladu. </p>
+      <p>Slovní zásoba z knihy Hnátek et al. (1969). <i>Cvičebnice jazyka řeckého</i>. Údaje excerpovali Tereza Vacková a Kamil Gregor. Ruské glosy zkontrolovali Andrij Sylka a Anton Gončaruk. </p>
       <p>Vyhledávač není citlivý na českou diakritiku nebo starořecké přízvuky a přídechy.
 
         <table border="0" cellspacing="5" cellpadding="5">
@@ -84,10 +84,10 @@
 
 
       CsvToHtmlTable.init({
-        csv_path: 'data/hnatek_vocab_r.csv',
+        csv_path: 'data/slovni_zasoba.csv',
         element: 'table-container',
         allow_download: true,
-        csv_options: {separator: ',', delimiter: '"'},
+        csv_options: {separator: ';', delimiter: '"'},
         datatables_options: {"paging": true, "autoFill": true, "language": {
         url: 'js/Czech.json'},
         "searchPanes": {
